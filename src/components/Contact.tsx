@@ -56,7 +56,7 @@ const Contact = () => {
         </div>
 
         <motion.p
-          className="text-white text-lg tracking-widest mb-6 md:mb-6 lg:mb-6 font-['Figtree'] tracking-wide"
+          className="text-white text-lg mb-6 md:mb-6 lg:mb-6 font-['Figtree'] tracking-wide"
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           transition={{ duration: 0.7, ease: "easeOut" }}

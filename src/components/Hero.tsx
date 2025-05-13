@@ -1,6 +1,6 @@
 import element from "/element.svg";
 import { motion, useMotionValue, animate, useInView } from "framer-motion";
-import { useRef, useState, useEffect } from "react";
+import { useRef, useState} from "react";
 import Loader from "./Loader.tsx";
 import TextHoverComp from "./TextHoverComp.tsx";
 

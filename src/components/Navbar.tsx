@@ -1,4 +1,3 @@
-import arrow from "/arrow.svg";
 import { motion, AnimatePresence } from "framer-motion";
 import { useState, useEffect } from "react";
 import { Menu, X } from "lucide-react";
@@ -38,14 +37,15 @@ const Navbar = () => {
     },
   };
 
-  const linkVariants = {
-    hidden: { opacity: 0, x: 10 },
-    visible: (i) => ({
-      opacity: 1,
-      x: 0,
-      transition: { delay: i * 0.05 },
-    }),
-  };
+const linkVariants = {
+  hidden: { opacity: 0, x: 10 },
+  visible: (i: number) => ({
+    opacity: 1,
+    x: 0,
+    transition: { delay: i * 0.05 },
+  }),
+};
+
 
   return (
     <header className="w-full top-0 z-50">

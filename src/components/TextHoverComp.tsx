@@ -1,20 +1,18 @@
 import { useState, useRef, useEffect } from "react";
 
 export default function GlowingTextEffect() {
-  const containerRef = useRef(null);
+  const containerRef = useRef<HTMLDivElement | null>(null);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [isHovering, setIsHovering] = useState(false);
   const [loaded, setLoaded] = useState(false);
 
-  // Trigger entrance animation after component mounts
   useEffect(() => {
     setTimeout(() => {
       setLoaded(true);
     }, 100);
   }, []);
 
-  // Track mouse position over the entire container
-  const handleMouseMove = (e) => {
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     if (containerRef.current) {
       const rect = containerRef.current.getBoundingClientRect();
       setMousePosition({
@@ -38,11 +36,11 @@ export default function GlowingTextEffect() {
       style={{ cursor: "default" }}
     >
       {["I", "M", "A", "G", "I", "N", "U", "M"].map((char, index) => {
-        const letterRef = useRef(null);
+        const letterRef = useRef<HTMLDivElement | null>(null);
         const [glowIntensity, setGlowIntensity] = useState(0);
 
         useEffect(() => {
-          if (isHovering && letterRef.current) {
+          if (isHovering && letterRef.current && containerRef.current) {
             const letterRect = letterRef.current.getBoundingClientRect();
             const containerRect = containerRef.current.getBoundingClientRect();
 

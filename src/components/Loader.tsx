@@ -1,7 +1,12 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { MultiStepLoader as Loader } from "./ui/multi-step-loader";
 
-const LoaderDemo = ({ onLoadingComplete }) => {
+// Define the props interface with onLoadingComplete as a function returning void
+interface LoaderDemoProps {
+  onLoadingComplete: () => void;
+}
+
+const LoaderDemo = ({ onLoadingComplete }: LoaderDemoProps) => {
   const [loading, setLoading] = useState(true);
 
   const loadingStates = [
@@ -22,14 +27,14 @@ const LoaderDemo = ({ onLoadingComplete }) => {
     const timer = setTimeout(() => {
       setLoading(false);
       document.body.classList.remove("no-scroll");
-      onLoadingComplete();
+      onLoadingComplete(); // Call the onLoadingComplete function when done
     }, totalDuration);
 
     return () => {
       clearTimeout(timer);
-      document.body.classList.remove("no-scroll"); // clean up on unmount
+      document.body.classList.remove("no-scroll"); // Clean up on unmount
     };
-  }, [loading, onLoadingComplete]);
+  }, [loadingStates.length, onLoadingComplete]); // Use loadingStates.length instead of loading
 
   return (
     <div

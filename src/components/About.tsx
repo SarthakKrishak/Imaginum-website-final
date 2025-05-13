@@ -8,6 +8,7 @@ import ScrollTrigger from "gsap/ScrollTrigger";
 import square from "/square.svg";
 import OrbitingCirclesAnimation from "./OrbitingCircle";
 
+// Type for the items
 const title: string[] = ["Innovation", "Integrity", "Creativity", "Excellence"];
 const desc: string[] = [
   "Constantly pushing boundaries and exploring new technologies",
@@ -18,12 +19,14 @@ const desc: string[] = [
 const image: string[] = [img1, img2, img3, img4];
 
 const About = () => {
+  // State for the circle sizes
   const [radiusLarge, setRadiusLarge] = useState<number>(200);
   const [radiusSmall, setRadiusSmall] = useState<number>(130);
   const [sizeset, setSizeset] = useState<number>(38);
 
   useEffect(() => {
-    if (typeof window === "undefined") return; // Fix for SSR (Next.js)
+    // Ensure window is defined (for SSR compatibility)
+    if (typeof window === "undefined") return;
 
     gsap.registerPlugin(ScrollTrigger);
 
@@ -89,9 +92,12 @@ const About = () => {
       setSizeset(width < 768 ? 32 : 48);
     };
 
-    handleResize();
+    handleResize(); // Set initial values
     window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
   }, []);
 
   return (
@@ -139,7 +145,11 @@ const About = () => {
           ))}
         </div>
 
-        <OrbitingCirclesAnimation />
+        <OrbitingCirclesAnimation
+          radiusLarge={radiusLarge} // Passing the dynamic radius values
+          radiusSmall={radiusSmall}
+          sizeset={sizeset}
+        />
       </div>
 
       {/* Background Blur Circle */}

@@ -30,13 +30,6 @@ const App = () => {
     };
   }, []);
 
-const scrollToSection = (id: string) => {
-  const element = document.getElementById(id);
-  if (element) {
-    lenis.current?.scrollTo(element);
-  }
-};
-
   return (
     <div className="min-h-screen overflow-hidden">
       <Herobg />
