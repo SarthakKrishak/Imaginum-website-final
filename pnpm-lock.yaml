@@ -30,7 +30,7 @@ importers:
         specifier: ^6.3.0
         version: 6.3.0
       gsap:
-        specifier: ^3.12.7
+        specifier: ^3.13.0
         version: 3.13.0
       lenis:
         specifier: ^1.2.3
@@ -69,6 +69,9 @@ importers:
       '@eslint/js':
         specifier: ^9.21.0
         version: 9.24.0
+      '@types/gsap':
+        specifier: ^3.0.0
+        version: 3.0.0
       '@types/node':
         specifier: ^22.14.1
         version: 22.14.1
@@ -761,6 +764,10 @@ packages:
 
   '@types/estree@1.0.7':
     resolution: {integrity: sha512-w28IoSUCJpidD/TGviZwwMJckNESJZXFu7NBZ5YJ4mEUnNraUn9Pm8HSZm/jDF1pDWYKspWE7oVphigUPRakIQ==}
+
+  '@types/gsap@3.0.0':
+    resolution: {integrity: sha512-BbWLi4WRHGze4C8NV7U7yRevuBFiPkPZZyGa0rryanvh/9HPUFXTNBXsGQxJZJq7Ix7j4RXMYodP3s+OsqCErg==}
+    deprecated: This is a stub types definition. gsap provides its own type definitions, so you do not need this installed.
 
   '@types/json-schema@7.0.15':
     resolution: {integrity: sha512-5+fP8P8MFNC+AyZCDxrB2pkZFPGzqQWUzpSeuuVLvm8VMcorNYavBqoFcxK8bQz4Qsbn4oUEEem4wDLfcysGHA==}
@@ -2554,6 +2561,10 @@ snapshots:
       '@babel/types': 7.27.0
 
   '@types/estree@1.0.7': {}
+
+  '@types/gsap@3.0.0':
+    dependencies:
+      gsap: 3.13.0
 
   '@types/json-schema@7.0.15': {}
 
