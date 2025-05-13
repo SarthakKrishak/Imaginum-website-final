@@ -26,7 +26,7 @@ const Expertise = () => {
   return (
     <>
       <div
-        className="text-white font-geist font-bold text-2xl md:text-3xl px-6 md:px-[6.6vw]  lg:px-[6rem] flex flex-col gap-4 md:mt-36 mt-24 "
+        className="text-white font-geist font-bold text-2xl md:text-3xl px-6 md:px-[6.6vw]  lg:px-[6rem] flex flex-col gap-4 md:mt-36 mt-24 cursor-default"
         id="expertise-home"
       >
         <div className="flex items-center">

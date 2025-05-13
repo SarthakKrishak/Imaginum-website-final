@@ -32,41 +32,35 @@ export default function GlowingTextEffect() {
   return (
     <div
       ref={containerRef}
-      className="h-[28rem] md:h-[22.9rem] lg:flex items-center justify-center font-raleway lg:mt-2 mx-4 lg:gap-4"
+      className="h-[28rem] md:h-[22.9rem] lg:flex items-center justify-center font-raleway lg:mt-2 mx-4 lg:gap-4 !cursor-default"
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
+      style={{ cursor: "default" }}
     >
       {["I", "M", "A", "G", "I", "N", "U", "M"].map((char, index) => {
-        // Create a reference for each letter to get its position
         const letterRef = useRef(null);
         const [glowIntensity, setGlowIntensity] = useState(0);
 
-        // Calculate glow intensity based on distance from mouse
         useEffect(() => {
           if (isHovering && letterRef.current) {
             const letterRect = letterRef.current.getBoundingClientRect();
             const containerRect = containerRef.current.getBoundingClientRect();
 
-            // Get letter position relative to container
             const letterX =
               letterRect.left - containerRect.left + letterRect.width / 2;
             const letterY =
               letterRect.top - containerRect.top + letterRect.height / 2;
 
-            // Calculate distance from mouse to center of letter
             const distance = Math.sqrt(
               Math.pow(mousePosition.x - letterX, 2) +
                 Math.pow(mousePosition.y - letterY, 2)
             );
 
-            // Maximum distance for glow effect (adjust as needed)
             const maxDistance = 150;
-
-            // Calculate intensity based on distance
             let intensity = 0;
             if (distance < maxDistance) {
               intensity = 1 - distance / maxDistance;
-              intensity = Math.pow(intensity, 2); // Make falloff more exponential
+              intensity = Math.pow(intensity, 2);
             }
 
             setGlowIntensity(intensity);
@@ -79,11 +73,13 @@ export default function GlowingTextEffect() {
           <div
             key={index}
             ref={letterRef}
-            className="relative inline-block text-5xl md:text-6xl lg:text-[11vw] font-black font-['Geist'] px-2"
+            className="relative inline-block text-5xl md:text-6xl lg:text-[11vw] font-black font-['Geist'] px-2 !cursor-default"
+            style={{ cursor: "default" }}
           >
             <span
-              className="text-transparent bg-clip-text bg-gradient-to-b from-[#0b75db] to-[#01284f] tracking-wide block"
+              className="text-transparent bg-clip-text bg-gradient-to-b from-[#0b75db] to-[#01284f] tracking-wide block !cursor-default"
               style={{
+                cursor: "default",
                 WebkitTextStroke: `${1 + glowIntensity}px rgba(255,255,255,${
                   0.3 + glowIntensity * 0.7
                 })`,

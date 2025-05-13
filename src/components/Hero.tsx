@@ -1,7 +1,7 @@
 import element from "/element.svg";
 import { motion, useMotionValue, animate, useInView } from "framer-motion";
-import { useRef, useState } from "react";
-import Loader from "./Loader";
+import { useRef, useState, useEffect } from "react";
+import Loader from "./Loader.tsx";
 import TextHoverComp from "./TextHoverComp.tsx";
 
 const Hero = () => {
@@ -10,24 +10,35 @@ const Hero = () => {
   const img2X = useMotionValue(-90);
   const img2Y = useMotionValue(-10);
   const [isHover, setIsHover] = useState(false);
+  const [loaderFinished, setLoaderFinished] = useState(false);
 
   const containerRef = useRef<HTMLDivElement | null>(null);
   const isInView = useInView(containerRef, { once: true });
 
+  // Only animate when both in view and loader has finished
+  const shouldAnimate = isInView && loaderFinished;
+
+  // Handle loader completion
+  const handleLoaderComplete = () => {
+    setLoaderFinished(true);
+  };
+
   return (
     <>
-      <Loader />
+      <Loader onLoadingComplete={handleLoaderComplete} />
       <motion.div
         ref={containerRef}
         initial={{ opacity: 0, y: 50 }}
-        animate={isInView ? { opacity: 1, y: 0 } : {}}
+        animate={shouldAnimate ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
         transition={{ duration: 1, ease: "easeOut" }}
         className="lg:min-h-[85vh] min-h-[48vh] flex flex-col justify-between mt-16 py-8 px-6 md:px-12"
       >
         <div className="flex flex-col items-center gap-6 text-center mt-6 ms:mt-4 md:mt-0">
           <motion.div
             initial={{ opacity: 0, y: 10 }}
-            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            animate={
+              shouldAnimate ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }
+            }
             transition={{ delay: 0.2, duration: 0.6 }}
             className="px-5 py-1 bg-gradient-to-r from-slate-950 to-sky-700 text-white outline outline-1 outline-blue-300 rounded-full text-[2.8vw] sm:text-[2.9vw] md:text-sm ont-['Lexend'] font-medium"
           >
@@ -37,7 +48,9 @@ const Hero = () => {
           <motion.h1
             className="font-bold text-white text-[1.35rem] sm:text-[1.3vw] md:text-[2.5rem] lg:text-[2.9rem] capitalize font-['Geist'] leading-snug"
             initial={{ opacity: 0, y: 20 }}
-            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            animate={
+              shouldAnimate ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }
+            }
             transition={{ delay: 0.4, duration: 0.8, ease: "easeOut" }}
           >
             Building the{" "}
@@ -56,7 +69,9 @@ const Hero = () => {
             onMouseEnter={() => setIsHover(true)}
             onMouseLeave={() => setIsHover(false)}
             initial={{ opacity: 0, y: 20 }}
-            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            animate={
+              shouldAnimate ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }
+            }
             transition={{ delay: 0.6, duration: 0.8, ease: "easeOut" }}
             className="relative overflow-hidden rounded-3xl px-4 md:px-6 py-2 flex items-center bg-gradient-to-b from-white to-neutral-400 shadow-[0px_12px_60px_0px_rgba(57,143,255,0.60)]"
             aria-label="Explore Now Button"
@@ -92,7 +107,7 @@ const Hero = () => {
 
         <motion.img
           initial={{ opacity: 0 }}
-          animate={isInView ? { opacity: 1 } : {}}
+          animate={shouldAnimate ? { opacity: 1 } : { opacity: 0 }}
           transition={{ delay: 1, duration: 1 }}
           style={{ x: img1X, y: img1Y }}
           drag
@@ -113,7 +128,7 @@ const Hero = () => {
 
         <motion.img
           initial={{ opacity: 0 }}
-          animate={isInView ? { opacity: 1 } : {}}
+          animate={shouldAnimate ? { opacity: 1 } : { opacity: 0 }}
           transition={{ delay: 1.2, duration: 1 }}
           style={{ x: img2X, y: img2Y }}
           drag
