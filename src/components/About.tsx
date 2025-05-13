@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import img1 from "/img1.svg";
 import img2 from "/img2.svg";
 import img3 from "/img3.svg";
@@ -19,10 +19,6 @@ const desc: string[] = [
 const image: string[] = [img1, img2, img3, img4];
 
 const About = () => {
-  // State for the circle sizes
-  const [radiusLarge, setRadiusLarge] = useState<number>(200);
-  const [radiusSmall, setRadiusSmall] = useState<number>(130);
-  const [sizeset, setSizeset] = useState<number>(38);
 
   useEffect(() => {
     // Ensure window is defined (for SSR compatibility)
@@ -83,21 +79,6 @@ const About = () => {
         },
       }
     );
-
-    // Responsive radius handler
-    const handleResize = (): void => {
-      const width = window.innerWidth;
-      setRadiusLarge(width < 768 ? 150 : 220);
-      setRadiusSmall(width < 768 ? 100 : 150);
-      setSizeset(width < 768 ? 32 : 48);
-    };
-
-    handleResize(); // Set initial values
-    window.addEventListener("resize", handleResize);
-
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
   }, []);
 
   return (
