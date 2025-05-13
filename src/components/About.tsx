@@ -8,24 +8,26 @@ import ScrollTrigger from "gsap/ScrollTrigger";
 import square from "/square.svg";
 import OrbitingCirclesAnimation from "./OrbitingCircle";
 
-const title = ["Innovation", "Integrity", "Creativity", "Excellence"];
-const desc = [
+const title: string[] = ["Innovation", "Integrity", "Creativity", "Excellence"];
+const desc: string[] = [
   "Constantly pushing boundaries and exploring new technologies",
   "Building trust through honesty and transparency",
   "Bringing unique and artistic perspectives to every project",
   "Delivering nothing short of the highest quality work",
 ];
-const image = [img1, img2, img3, img4];
+const image: string[] = [img1, img2, img3, img4];
 
 const About = () => {
-  const [radiusLarge, setRadiusLarge] = useState(200);
-  const [radiusSmall, setRadiusSmall] = useState(130);
-  const [sizeset, setSizeset] = useState(38);
+  const [radiusLarge, setRadiusLarge] = useState<number>(200);
+  const [radiusSmall, setRadiusSmall] = useState<number>(130);
+  const [sizeset, setSizeset] = useState<number>(38);
 
   useEffect(() => {
+    if (typeof window === "undefined") return; // Fix for SSR (Next.js)
+
     gsap.registerPlugin(ScrollTrigger);
 
-    // Animation for "About us" title
+    // Animation for title
     gsap.fromTo(
       "#about-home h1",
       { opacity: 0, y: -50 },
@@ -42,8 +44,8 @@ const About = () => {
       }
     );
 
-    // Animation for the section with images and text (titles and descriptions)
-    gsap.utils.toArray(".section-item").forEach((item, index) => {
+    // Animation for each item
+    gsap.utils.toArray<HTMLElement>(".section-item").forEach((item, index) => {
       gsap.fromTo(
         item,
         { opacity: 0, y: 100 },
@@ -51,7 +53,7 @@ const About = () => {
           opacity: 1,
           y: 0,
           duration: 0.8,
-          delay: index * 0.2, // Stagger animation for each item
+          delay: index * 0.2,
           scrollTrigger: {
             trigger: item,
             start: "top 80%",
@@ -62,7 +64,7 @@ const About = () => {
       );
     });
 
-    // Animation for orbiting circles
+    // Orbiting circle animation
     gsap.fromTo(
       ".orbiting-circles",
       { scale: 0.5, opacity: 0 },
@@ -79,15 +81,15 @@ const About = () => {
       }
     );
 
-    // Resize handler for responsiveness
-    const handleResize = () => {
+    // Responsive radius handler
+    const handleResize = (): void => {
       const width = window.innerWidth;
       setRadiusLarge(width < 768 ? 150 : 220);
       setRadiusSmall(width < 768 ? 100 : 150);
       setSizeset(width < 768 ? 32 : 48);
     };
 
-    handleResize(); // Set on mount
+    handleResize();
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
@@ -95,12 +97,12 @@ const About = () => {
   return (
     <div id="about-home" className="relative">
       {/* Title */}
-      <div className="text-white font-geist font-bold text-2xl md:text-3xl px-6 lg:px-[6rem] md:px-[6.6vw]  flex flex-col gap-4">
+      <div className="text-white font-geist font-bold text-2xl md:text-3xl px-6 lg:px-[6rem] md:px-[6.6vw] flex flex-col gap-4">
         <div className="flex items-center">
           <img src={square} alt="image" className="size-7 md:size-9" />
           <h1 className="pl-4 md:pl-[1rem] lg:ml-[-0.5rem]">About us</h1>
         </div>
-        <div className="border-gradient-custom w-[6rem] shadow-[0px_0px_7px_0px_rgba(0,221,255,1.00)] outline outline-[3px] outline-offset-[-2.50px] outline-cyan-400/40 rounded"></div>
+        <div className="border-gradient-custom w-[6rem] shadow-[0px_0px_7px_0px_rgba(0,221,255,1.00)] outline outline-[3px] outline-offset-[-2.50px] outline-cyan-400/40 rounded" />
       </div>
 
       {/* Intro */}
@@ -112,7 +114,7 @@ const About = () => {
         </h1>
       </div>
 
-      {/* Image & Titles Section */}
+      {/* Features Section */}
       <div className="flex flex-col lg:flex-row px-6 md:px-[6rem] md:mt-0 gap-14 lg:gap-8 items-center justify-between mt-12 lg:mt-[-5vh]">
         <div className="grid grid-cols-2 gap-10 lg:px-6">
           {title.map((e, i) => (
@@ -123,7 +125,7 @@ const About = () => {
               <div className="flex flex-col items-center gap-2">
                 <img
                   src={image[i]}
-                  alt="icon"
+                  alt={`icon-${i}`}
                   className="h-[2.5rem] md:h-[2.5rem]"
                 />
                 <h1 className="text-white text-[1.25rem] md:text-[1.7rem] font-medium font-['Geist']">
@@ -140,6 +142,7 @@ const About = () => {
         <OrbitingCirclesAnimation />
       </div>
 
+      {/* Background Blur Circle */}
       <div className="absolute top-[12vh] md:top-[15vh] left-1/6 -translate-x-1/2 md:left-[-15rem] md:translate-x-0 -z-[20]">
         <div className="h-[22rem] w-[24rem] md:h-[32rem] md:w-[30rem] rounded-full opacity-40 bg-[conic-gradient(from_177deg_at_50.00%_50.00%,_#2B6ED1_59deg,_#062550_247deg,_#006FFF_360deg)] blur-3xl" />
       </div>

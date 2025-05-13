@@ -4,44 +4,40 @@ import whatsapp from "/whatsapp.svg";
 import linkedin from "/linkedin.svg";
 import x from "/x.svg";
 import { FaArrowUp } from "react-icons/fa";
-import { Link } from "react-router-dom";
 import Footerbg from "./Footerbg";
 
 const Footer = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [arrowVisible, setArrowVisible] = useState(false);
 
-  useEffect(() => {
-    const footerElement = document.getElementById("footer");
-    const arrowElement = document.getElementById("scrollArrow");
+useEffect(() => {
+  const footerElement = document.getElementById("footer");
+  const arrowElement = document.getElementById("scrollArrow");
 
-    const footerObserver = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-        }
-      },
-      { threshold: 0.5 } // When 50% of the footer is visible
-    );
+  const footerObserver = new IntersectionObserver(
+    ([entry]) => {
+      if (entry.isIntersecting) setIsVisible(true);
+    },
+    { threshold: 0.5 }
+  );
 
-    footerObserver.observe(footerElement);
+  const arrowObserver = new IntersectionObserver(
+    ([entry]) => {
+      if (entry.isIntersecting) setArrowVisible(true);
+    },
+    { threshold: 0.1 }
+  );
 
-    const arrowObserver = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setArrowVisible(true);
-        }
-      },
-      { threshold: 0.1 } // Trigger animation when small part of the arrow is visible
-    );
+  if (footerElement) footerObserver.observe(footerElement);
+  if (arrowElement) arrowObserver.observe(arrowElement);
 
-    arrowObserver.observe(arrowElement);
+  return () => {
+    footerObserver.disconnect();
+    arrowObserver.disconnect();
+  };
+}, []);
 
-    return () => {
-      footerObserver.disconnect();
-      arrowObserver.disconnect();
-    };
-  }, []);
+
 
   const handleClick = () => {
     window.scrollTo({

@@ -5,11 +5,10 @@ import proj1 from "/proj1.svg";
 import proj2 from "/proj2.svg";
 import proj3 from "/proj3.svg";
 import square from "/square.svg";
-import more from "/gradient.png";
 import { Toaster } from "react-hot-toast";
 import { motion, animate, useMotionValue, useInView } from "framer-motion";
 import { useRef } from "react";
-
+import { ReactNode} from "react";
 const fadeInUp = {
   hidden: { opacity: 0, y: 40 },
   visible: {
@@ -21,8 +20,12 @@ const fadeInUp = {
     },
   },
 };
+interface CardWrapperProps {
+  children: ReactNode;
+  delay?: number;
+}
 
-const CardWrapper = ({ children, delay = 0 }) => {
+const CardWrapper = ({ children, delay = 0 }: CardWrapperProps) => {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true });
 
@@ -168,6 +171,7 @@ const Projects = () => {
 
         <CardWrapper delay={0.4}>
           <Card
+            image={""}
             name="MORE PROJECT"
             subtitle="COMING SOON.."
             description="We get ideas all day . All of them are updated here as soon as we start working on them."

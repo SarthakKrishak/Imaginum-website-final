@@ -10,35 +10,32 @@ import Lenis from "@studio-freight/lenis";
 import { useEffect, useRef } from "react";
 
 const App = () => {
-  const lenis = useRef(null);
+ const lenis = useRef<Lenis | null>(null);
 
   useEffect(() => {
-  
     lenis.current = new Lenis({
       duration: 0.6,
-      easing: (t) => 1 - Math.pow(1 - t, 3), 
-      smooth: true,
-      smoothTouch: true,
+      easing: (t: number) => 1 - Math.pow(1 - t, 3),
     });
 
-    const animate = (time) => {
-      lenis.current.raf(time);
+    const animate = (time: number) => {
+      lenis.current?.raf(time);
       requestAnimationFrame(animate);
     };
 
     requestAnimationFrame(animate);
 
     return () => {
-      lenis.current.destroy();
+      lenis.current?.destroy();
     };
   }, []);
 
-  const scrollToSection = (id) => {
-    const element = document.getElementById(id);
-    if (element) {
-      lenis.current.scrollTo(element); 
-    }
-  };
+const scrollToSection = (id: string) => {
+  const element = document.getElementById(id);
+  if (element) {
+    lenis.current?.scrollTo(element);
+  }
+};
 
   return (
     <div className="min-h-screen overflow-hidden">
