@@ -145,11 +145,7 @@ const About = () => {
           ))}
         </div>
 
-        <OrbitingCirclesAnimation
-          radiusLarge={radiusLarge} // Passing the dynamic radius values
-          radiusSmall={radiusSmall}
-          sizeset={sizeset}
-        />
+        <OrbitingCirclesAnimation/>
       </div>
 
       {/* Background Blur Circle */}
